@@ -33,10 +33,16 @@ public class ReviewService {
 		return repository.save(review);
 	}
 
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
 	private void updateData(Review review, Review obj) {
 		review.setComment(obj.getComment());
 		review.setBook(review.getBook());
 	}
+	
+	
 
 	
 }
