@@ -3,6 +3,7 @@ package br.com.bookstore.app.model.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.bookstore.app.model.entities.Publisher;
@@ -11,6 +12,7 @@ import br.com.bookstore.app.model.repositories.PublisherRepository;
 @Service
 public class PublisherService {
 
+	@Autowired
 	private PublisherRepository repository;
 	
 	public Optional<Publisher> findById(Long id) {
@@ -32,7 +34,7 @@ public class PublisherService {
 	public Publisher update(Long id, Publisher obj) {
 		Publisher publisher = repository.getReferenceById(id);
 		updateData(publisher, obj);
-		return publisher;
+		return repository.save(publisher);
 	}
 
 	private void updateData(Publisher publisher, Publisher obj) {
