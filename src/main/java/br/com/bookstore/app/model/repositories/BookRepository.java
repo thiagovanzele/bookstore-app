@@ -6,5 +6,5 @@ import br.com.bookstore.app.model.entities.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-	public Book findBookByTitleContainingIgnoreCase(String title);
+	Book findBookByTitleContainingIgnoreCase(String title);
 }
