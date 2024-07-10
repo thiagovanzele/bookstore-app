@@ -1,12 +1,15 @@
 package br.com.bookstore.app.model.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,8 +20,11 @@ public class Publisher implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
+
+	@OneToMany(mappedBy = "publisher")
+	private Set<Book> books = new HashSet<>();
 
 	public Publisher() {
 	}
@@ -43,6 +49,10 @@ public class Publisher implements Serializable {
 		this.name = name;
 	}
 
+	public Set<Book> getBooks() {
+		return books;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
@@ -59,8 +69,5 @@ public class Publisher implements Serializable {
 		Publisher other = (Publisher) obj;
 		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
-	
-	
-	
-	
+
 }
