@@ -36,4 +36,8 @@ public class AuthorService {
 	private void updateData(Author author, Author obj) {
 		author.setName(obj.getName());
 	}
+	
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
 }
