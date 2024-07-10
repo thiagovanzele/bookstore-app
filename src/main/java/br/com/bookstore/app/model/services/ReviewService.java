@@ -23,7 +23,7 @@ public class ReviewService {
 		return repository.findAll();
 	}
 	
-	public Review insertReview(Review review) {
+	public Review insert(Review review) {
 		return repository.save(review);
 	}
 	
