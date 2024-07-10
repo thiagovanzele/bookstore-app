@@ -1,13 +1,17 @@
 package br.com.bookstore.app.model.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -20,15 +24,21 @@ public class Book implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String title;
-	
+
 	@OneToOne(mappedBy = "book")
 	private Review review;
-	
+
 	@JoinColumn(name = "id_publisher")
 	@ManyToOne
 	private Publisher publisher;
+
+	@JoinTable(name = "tb_book_author",
+			joinColumns = @JoinColumn(name = "id_book"),
+			inverseJoinColumns = @JoinColumn(name = "id_author"))
+	@ManyToMany()
+	private Set<Author> authors = new HashSet<>();
 
 	public Book() {
 	}
@@ -52,8 +62,6 @@ public class Book implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
 
 	public Review getReview() {
 		return review;
@@ -69,6 +77,10 @@ public class Book implements Serializable {
 
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
+	}
+
+	public Set<Author> getAuthors() {
+		return authors;
 	}
 
 	@Override
@@ -87,7 +99,5 @@ public class Book implements Serializable {
 		Book other = (Book) obj;
 		return Objects.equals(id, other.id) && Objects.equals(title, other.title);
 	}
-	
-	
-	
+
 }
