@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,13 +21,15 @@ public class Review implements Serializable {
 	private Long id;
 	
 	private String comment;
+	
+	@JoinColumn(name = "id_book")
+	@OneToOne
+	private Book book;
 
 	public Review() {
-		super();
 	}
 
 	public Review(String comment) {
-		super();
 		this.comment = comment;
 	}
 
@@ -43,6 +47,14 @@ public class Review implements Serializable {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override
