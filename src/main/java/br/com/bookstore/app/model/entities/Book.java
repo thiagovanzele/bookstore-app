@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,6 +41,7 @@ public class Book implements Serializable {
 			joinColumns = @JoinColumn(name = "id_book"),
 			inverseJoinColumns = @JoinColumn(name = "id_author"))
 	@ManyToMany()
+	@JsonIgnore
 	private Set<Author> authors = new HashSet<>();
 
 	public Book() {
@@ -82,7 +86,7 @@ public class Book implements Serializable {
 	public Set<Author> getAuthors() {
 		return authors;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, title);

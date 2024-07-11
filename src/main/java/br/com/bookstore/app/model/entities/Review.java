@@ -3,6 +3,8 @@ package br.com.bookstore.app.model.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Review implements Serializable {
 	
 	@JoinColumn(name = "id_book")
 	@OneToOne
+	@JsonIgnore
 	private Book book;
 
 	public Review() {

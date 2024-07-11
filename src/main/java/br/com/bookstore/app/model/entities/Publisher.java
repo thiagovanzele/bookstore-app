@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,7 @@ public class Publisher implements Serializable {
 
 	private String name;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "publisher")
 	private Set<Book> books = new HashSet<>();
 
@@ -51,6 +54,11 @@ public class Publisher implements Serializable {
 
 	public Set<Book> getBooks() {
 		return books;
+	}
+	
+	public void addBook(Book book) {
+		this.books.add(book);
+		book.setPublisher(this);
 	}
 
 	@Override
